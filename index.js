@@ -14,7 +14,7 @@ bot.on('guildMemberAdd', member => {
   // Do nothing if the channel wasn't found on this server
   if (!channel) return;
   // Send the message, mentioning the member
-  channel.send(`:loudspeaker: **${member}** just joined the server. Have a great time here!`).then(msg => msg.delete(60000));
+  channel.send(`:loudspeaker: **${member}** just joined the server. Have a great time here!`);
 });
 
 bot.on("message", async message => {
