@@ -43,7 +43,7 @@ bot.on("message", async message => {
 });
 
 //Ik5KSLzA6C
-//test lol note thing
+//test lol note thingh
 
 bot.login(process.env.BOT_TOKEN);
 
