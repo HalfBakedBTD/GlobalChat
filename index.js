@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 const bot = new Discord.Client({disableEveryone: true});
-const chratis_cooldown_time = 60;
+const chratis_cooldown_time = 10;
 const chratis_talked_users = new Set();
 bot.on("ready", async () => {
     console.log(`${bot.user.username} is online!`);
@@ -28,17 +28,21 @@ bot.on("message", async message => {
     let adschannel = message.guild.channels.find(`name`, "ads");
     if(!adschannel) return message.channel.send("The bot is not properly set up! Please type `^test`.");
     if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I do this for you? I have a **Admin only** policy.");
-    if (chratis_talked_users.has(message.author.id)) return message.reply("You have to wait before using this command again.\n*[5 min cooldown has not ended yet.]*");
+    if (chratis_talked_users.has(message.author.id)) return message.reply("You have to wait before using this command again.\n*[Only 1 server can be advertised every 10 seconds.]*");
     message.channel.createInvite()
     	.then(invite => {
 	    bot.channels.filter(c => c.name.toLowerCase() === 'ads').forEach(channel => channel.send(`Join **${message.guild.name}**!\n\t${message.guild.name} is a dope server with lots of cool stuff.\n\n**-----------------------------------------------------------**\nhttps://www.discord.gg/${invite.code}`));
         });
-    message.channel.send("Your server has been advirtized for!")
+    message.channel.send("Your server has been advirtised!")
     chratis_talked_users.add(message.author.id);
     setTimeout(() => {
       chratis_talked_users.delete(message.author.id);
-    }, chratis_cooldown_time * 5000);
+    }, chratis_cooldown_time * 1000);
   } 
+  if (message.content === '^info') {
+    message.author.send(`**AdBot:**\n\n\tRunning on: ${bot.guilds.size} servers.\n\n\tWatching: ${bot.users.size} online users.`)
+    return message.channel.send("I DMed you my info!")
+  }
 });
 
 //Ik5KSLzA6C
