@@ -40,7 +40,7 @@ bot.on("message", async message => {
     for (i = 0; i < badWords.length; i++) {
         var rgx = new RegExp(badWords[i], 'gi');
         if (rgx.test(message.content)) {
-            bot.channels.filter(c => c.name.toLowerCase() === 'global').forEach(channel => channel.send(`**${message.author.name}** from **${message.guild.name}:\n  ${message.author.lastMessage}`));
+            return bot.channels.filter(c => c.name.toLowerCase() === 'global').forEach(channel => channel.send(`**${message.author.name}** from **${message.guild.name}:\n  ${message.author.lastMessage}`));
         }
     }
   if (message.content === '^help') {
