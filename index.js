@@ -3,8 +3,18 @@ const fs = require("fs");
 const bot = new Discord.Client({disableEveryone: true});
 const chratis_cooldown_time = 10;
 const chratis_talked_users = new Set();
+
 bot.on("ready", async () => {
     console.log(`${bot.user.username} is online!`);
+});
+
+bot.on('guildMemberAdd', member => {
+  // Send the message to a designated channel on a server:
+  const channel = member.guild.channels.find('name', 'welcome');
+  // Do nothing if the channel wasn't found on this server
+  if (!channel) return;
+  // Send the message, mentioning the member
+  channel.send(`:loudspeaker: **${member}** just joined the server. Have a great time here!`).then(msg => msg.delete(60000));
 });
 
 bot.on("message", async message => {
