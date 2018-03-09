@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 const bot = new Discord.Client({disableEveryone: true});
-const chratis_cooldown_time = 60;
+const chratis_cooldown_time = 2;
 const chratis_talked_users = new Set();
 
 bot.on("ready", async () => {
@@ -38,7 +38,7 @@ bot.on("message", async message => {
     chratis_talked_users.add(message.author.id);
     setTimeout(() => {
       chratis_talked_users.delete(message.author.id);
-    }, chratis_cooldown_time * 5000);
+    }, chratis_cooldown_time * 1000);
   } 
 });
 
