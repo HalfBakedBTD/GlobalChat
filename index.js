@@ -38,12 +38,12 @@ bot.on("message", async message => {
     if(message.author.bot) return;
     if(message.channel.type === "dm") return;
   if (message.content.toLowerCase().includes('discord')) {
-    return bot.channels.filter(c => c.name.toLowerCase() === 'global').forEach(channel => channel.send(`**${message.author.nick}** from **${message.guild.name}** server:\n  Tried to send a **link**.`));
+    return bot.channels.filter(c => c.name.toLowerCase() === 'global').forEach(channel => channel.send(`**${message.author.username}** from **${message.guild.name}** server:\n  Tried to send a **link**.`));
   }
    for (i = 0; i < badWords.length; i++) {
         var rgx = new RegExp(badWords[i], 'gi');
         if (rgx.test(message.content)) {
-            return bot.channels.filter(c => c.name.toLowerCase() === 'global').forEach(channel => channel.send(`**${message.author.nick}** from **${message.guild.name}** server:\n  ${message.author.lastMessage}`));
+            return bot.channels.filter(c => c.name.toLowerCase() === 'global').forEach(channel => channel.send(`**${message.author.username}** from **${message.guild.name}** server:\n  ${message.author.lastMessage}`));
         }
     }
   if (message.content === '^help') {
