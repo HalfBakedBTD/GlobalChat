@@ -22,7 +22,7 @@ bot.on("message", async message => {
   if (message.content === '^test') {
     if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I test for you? I have a **Admin only** policy.");
     let adschannel = message.guild.channels.find(`name`, "ads");
-    if(!adschannel) return message.channel.send("You don't have a **#ads** channel in the server! Please create one then type `,test`!");
+    if(!adschannel) return message.channel.send("You don't have a **#ads** channel in the server! Please create one then type `^test`!");
     message.channel.send("**__ALL SYSTEMS OPERATIONAL!__** In other words you did everything right and CussOut can run properly!")
   }
   if (message.content === '^ad') {
