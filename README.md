@@ -1,1 +1,1 @@
-# GlobalChat
+# CussOut
