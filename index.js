@@ -1,34 +1,8 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 const bot = new Discord.Client({disableEveryone: true});
-const badWords = [
-    'a',
-    'b',
-    'c',
-    'd',
-    'e',
-    'f',
-    'g',
-    'h',
-    'i',
-    'j',
-    'k',
-    'l',
-    'm',
-    'n',
-    'o',
-    'p',
-    'q',
-    'r',
-    's',
-    't',
-    'u',
-    'v',
-    'w',
-    'x',
-    'y',
-    'z'
-];
+const chratis_cooldown_time = 60;
+const chratis_talked_users = new Set();
 
 bot.on("ready", async () => {
     console.log(`${bot.user.username} is online!`);
@@ -39,7 +13,7 @@ bot.on("message", async message => {
     if(message.channel.type === "dm") return;
   if (message.content === '^help') {
     message.channel.send("DMed you! Check it out for all the info!")
-    return message.author.send("**My Commands:** *all commands start with `^` prefix.*\n\t`help` shows this message.\n\t`test` tests to see if the bot is properly set up.\n\t`info` shows bot info.")
+    return message.author.send("**My Commands:** *all commands start with `^` prefix.*\n\t`help` shows this message.\n\t`test` tests to see if the bot is properly set up.\n\t`info` shows bot info.\n\t`ad` bumps your channel to the top of the list.")
   }
   if (message.content === '^invite') {
     message.channel.send("I DMed you a link to add me to your server!")
@@ -47,29 +21,23 @@ bot.on("message", async message => {
   }
   if (message.content === '^test') {
     if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I test for you? I have a **Admin only** policy.");
-    let globalchannel = message.guild.channels.find(`name`, "global");
-    if(!globalchannel) return message.channel.send("You don't have a **#global** channel in the server! Please create one then type `,test`!");
+    let adschannel = message.guild.channels.find(`name`, "ads");
+    if(!adschannel) return message.channel.send("You don't have a **#ads** channel in the server! Please create one then type `,test`!");
     message.channel.send("**__ALL SYSTEMS OPERATIONAL!__** In other words you did everything right and CussOut can run properly!")
   }
-  if (message.content === '^info') {
-    message.author.send(`**CussOut:**\n\n\tRunning on: ${bot.guilds.size} servers.\n\n\tWatching: ${bot.users.size} online users.`)
-    return message.channel.send("I DMed you my info!")
-  }
-  if (message.content.toLowerCase().includes('discord')) {
-    return bot.channels.filter(c => c.name.toLowerCase() === 'global').forEach(channel => channel.send(`**${message.author.username}** from **${message.guild.name}** server:\n  Tried to send a **link**.`));
-  }
-   if (message.content.toLowerCase().includes('@everyone')) {
-    return bot.channels.filter(c => c.name.toLowerCase() === 'global').forEach(channel => channel.send(`**${message.author.username}** from **${message.guild.name}** server:\n  Tried to **tag everyone**.`));
-  }
-   if (message.content.toLowerCase().includes('@here')) {
-    return bot.channels.filter(c => c.name.toLowerCase() === 'global').forEach(channel => channel.send(`**${message.author.username}** from **${message.guild.name}** server:\n  Tried to **tag everyone**.`));
-  }
-   for (i = 0; i < badWords.length; i++) {
-        var rgx = new RegExp(badWords[i], 'gi');
-        if (rgx.test(message.content)) {
-            return bot.channels.filter(c => c.name.toLowerCase() === 'global').forEach(channel => channel.send(`**${message.author.username}** from **${message.guild.name}** server:\n  ${message.author.lastMessage}`));
-        }
-    }
+  if (message.content === '^ad') {
+    if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I do this for you? I have a **Admin only** policy.");
+    if (chratis_talked_users.has(message.author.id)) return message.reply("This command has a 60 second cooldown.");
+    message.channel.createInvite()
+    	.then(invite => {
+	    bot.channels.filter(c => c.name.toLowerCase() === 'ads').forEach(channel => channel.send(`Join **${message.guild.name}**!\n\t${message.guild.name} is a dope server with lots of cool stuff.\n\n**-----------------------------------------------------------**\nhttps://www.discord.gg/${invite.code}`));
+        });
+    message.channel.send("Your server has been advirtized for!")
+    chratis_talked_users.add(message.author.id);
+    setTimeout(() => {
+      chratis_talked_users.delete(message.author.id);
+    }, chratis_cooldown_time * 1000);
+  } 
 });
 
 //Ik5KSLzA6C
