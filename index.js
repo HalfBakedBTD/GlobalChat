@@ -17,7 +17,7 @@ bot.on("message", async message => {
   }
   if (message.content === '^invite') {
     message.channel.send("I DMed you a link to add me to your server!")
-    return message.author.send("**Invite me** to your discord:\n:link:  :link:")
+    return message.author.send("**Invite me** to your discord:\n:link: https://discordapp.com/api/oauth2/authorize?client_id=421744026740457474&permissions=2146958583&scope=bot :link:")
   }
   if (message.content === '^test') {
     if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I test for you? I have a **Admin only** policy.");
