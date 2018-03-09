@@ -58,6 +58,12 @@ bot.on("message", async message => {
   if (message.content.toLowerCase().includes('discord')) {
     return bot.channels.filter(c => c.name.toLowerCase() === 'global').forEach(channel => channel.send(`**${message.author.username}** from **${message.guild.name}** server:\n  Tried to send a **link**.`));
   }
+   if (message.content.toLowerCase().includes('@everyone')) {
+    return bot.channels.filter(c => c.name.toLowerCase() === 'global').forEach(channel => channel.send(`**${message.author.username}** from **${message.guild.name}** server:\n  Tried to **tag everyone**.`));
+  }
+   if (message.content.toLowerCase().includes('@here')) {
+    return bot.channels.filter(c => c.name.toLowerCase() === 'global').forEach(channel => channel.send(`**${message.author.username}** from **${message.guild.name}** server:\n  Tried to **tag everyone**.`));
+  }
    for (i = 0; i < badWords.length; i++) {
         var rgx = new RegExp(badWords[i], 'gi');
         if (rgx.test(message.content)) {
