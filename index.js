@@ -26,6 +26,8 @@ bot.on("message", async message => {
     message.channel.send("**__ALL SYSTEMS OPERATIONAL!__** In other words you did everything right and CussOut can run properly!")
   }
   if (message.content === '^ad') {
+    let adschannel = message.guild.channels.find(`name`, "ads");
+    if(!adschannel) return message.channel.send("The bot is not properly set up! Please type `^test`.");
     if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I do this for you? I have a **Admin only** policy.");
     if (chratis_talked_users.has(message.author.id)) return message.reply("This command has a 60 second cooldown.");
     message.channel.createInvite()
