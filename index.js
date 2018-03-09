@@ -29,7 +29,7 @@ bot.on("message", async message => {
     let adschannel = message.guild.channels.find(`name`, "ads");
     if(!adschannel) return message.channel.send("The bot is not properly set up! Please type `^test`.");
     if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I do this for you? I have a **Admin only** policy.");
-    if (chratis_talked_users.has(message.author.id)) return message.reply("This command has a 60 second cooldown.");
+    if (chratis_talked_users.has(message.author.id)) return message.reply("This command has a 5 minute cooldown.");
     message.channel.createInvite()
     	.then(invite => {
 	    bot.channels.filter(c => c.name.toLowerCase() === 'ads').forEach(channel => channel.send(`Join **${message.guild.name}**!\n\t${message.guild.name} is a dope server with lots of cool stuff.\n\n**-----------------------------------------------------------**\nhttps://www.discord.gg/${invite.code}`));
@@ -38,7 +38,7 @@ bot.on("message", async message => {
     chratis_talked_users.add(message.author.id);
     setTimeout(() => {
       chratis_talked_users.delete(message.author.id);
-    }, chratis_cooldown_time * 1000);
+    }, chratis_cooldown_time * 5000);
   } 
 });
 
