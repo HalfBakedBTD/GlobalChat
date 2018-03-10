@@ -56,7 +56,7 @@ bot.on("message", async message => {
     message.author.send(`**AdBot:**\n\n\tRunning on: ${bot.guilds.size} servers.\n\n\tWatching: ${bot.users.size} online users.`)
     return message.channel.send("I DMed you my info!")
   }
-  if (cmd === '^custom^ad':
+  if (cmd === '^custom^ad') {
       if (!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("Sorry, you don't have permissions to use this!");
       const sayMessage = args.join(" ");
     message.delete().catch(O_o=>{}); 
