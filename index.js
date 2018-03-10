@@ -56,19 +56,6 @@ bot.on("message", async message => {
     message.author.send(`**AdBot:**\n\n\tRunning on: ${bot.guilds.size} servers.\n\n\tWatching: ${bot.users.size} online users.`)
     return message.channel.send("I DMed you my info!")
   }
-  if (message.content === '^custom-ad') {
-    let adschannel = message.guild.channels.find(`name`, "ads");
-    if(!adschannel) return message.channel.send("The bot is not properly set up! Please type `^test`.");
-    if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I do this for you? I have a **Admin only** policy.");
-    if (chratis_talked_users.has(message.author.id)) return message.reply("You have to wait before using this command again.\n*[Only 1 server can be advertised every 10 seconds.]*");
-    const sayMessage = args.join(" ");
-    message.channel.send("Your server has been advirtised!")
-    bot.channels.filter(c => c.name === 'ads').forEach(channel => channel.send(`**-----------------------------------------------------------**\n\n${sayMessage}\n\n**-----------------------------------------------------------**\n[Type \`^help\` for help and a link to join the official server!]`));
-    chratis_talked_users.add(message.author.id);
-    setTimeout(() => {
-      chratis_talked_users.delete(message.author.id);
-    }, chratis_cooldown_time * 1000);
-  } 
 });
 
 //Ik5KSLzA6C
