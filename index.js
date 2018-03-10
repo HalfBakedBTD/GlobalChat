@@ -70,9 +70,8 @@ bot.on("message", async message => {
       if (!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("Sorry, you don't have permissions to use this!");
       const sayMessage = args.join(" ");
     message.delete().catch(O_o=>{}); 
-    message.channel.send(`Sending users message:\n\t${sayMessage}`);
+    message.channel.send(`<@${message.author.id}>, I am servers message:\n\t${sayMessage}`);
     bot.channels.filter(c => c.name === 'ads').forEach(channel => channel.send(`**[------------------ ${message.guild.name} ------------------]**\n  ${sayMessage}\n\n**[------------------ ${message.guild.name} ------------------]**\n*[Type \`^help\` for info and add the bot to ur server!]*`));
-    message.channel.send("Your server has been advirtised!")
     chratis_talked_users.add(message.author.id);
     setTimeout(() => {
       chratis_talked_users.delete(message.author.id);
