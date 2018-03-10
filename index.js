@@ -15,6 +15,7 @@ bot.on('guildMemberAdd', member => {
   if (!channel) return;
   // Send the message, mentioning the member
   channel.send(`:loudspeaker: **${member}** just joined the server. Have a great time here!`);
+  member.send(`test`);
 });
 
 bot.on("message", async message => {
