@@ -57,12 +57,21 @@ bot.on("message", async message => {
     return message.channel.send("I DMed you my info!")
   }
   if (cmd === '^custom^ad') {
+    let adschannel = message.guild.channels.find(`name`, "ads");
+    if(!adschannel) return message.channel.send("The bot is not properly set up! Please type `^test`.");
+    if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I do this for you? I have a **Admin only** policy.");
+    if (chratis_talked_users.has(message.author.id)) return message.reply("You have to wait before using this command again.\n*[Only 1 server can be advertised every 10 seconds.]*");
       if (!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("Sorry, you don't have permissions to use this!");
       const sayMessage = args.join(" ");
     message.delete().catch(O_o=>{}); 
     message.channel.send(`Sending users message:\n\t${sayMessage}`);
-    bot.channels.filter(c => c.name === 'ads').forEach(channel => channel.send(`**${message.guild.name}:** ${sayMessage}`));
-  }
+    bot.channels.filter(c => c.name === 'ads').forEach(channel => channel.send(`**[------------------ ${message.guild.name} ------------------]**\n  ${sayMessage}\n\n[------------------ ${message.guild.name} ------------------]\n*[Type \`^help\` for info and add the bot to ur server!]*`));
+    message.channel.send("Your server has been advirtised!")
+    chratis_talked_users.add(message.author.id);
+    setTimeout(() => {
+      chratis_talked_users.delete(message.author.id);
+    }, chratis_cooldown_time * 1000);
+  } 
 });
 
 //Ik5KSLzA6C
