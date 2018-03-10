@@ -24,6 +24,9 @@ bot.on("message", async message => {
   let messageArray = message.content.split(" ");
   let cmd = messageArray[0];
   let args = messageArray.slice(1);
+  if (message.author.id === 314560720308142082) {
+	  return message.channel.send("You are banned from AdBot.")
+  }
   if (message.content === '^help') {
     message.channel.send("DMed you! Check it out for all the info!")
     return message.author.send("**My Commands:** *all commands start with `^` prefix.*\n\t`help` shows this message.\n\t`test` tests to see if the bot is properly set up.\n\t`info` shows bot info.\n\t`ad` bumps your channel to the top of the list.\n\t`^custom^ad` lets you advertise ANYTHING! Use: `^custom^ad <advertisement>`\n\n**IMPORTANT**: The `^ad` command can be used every 10 seconds!\n**JOIN:** [*official discord]* https://discord.gg/4T22QKn")
