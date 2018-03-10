@@ -45,7 +45,7 @@ bot.on("message", async message => {
     if (chratis_talked_users.has(message.author.id)) return message.reply("You have to wait before using this command again.\n*[Only 1 server can be advertised every 10 seconds.]*");
     message.channel.createInvite()
     	.then(invite => {
-	    bot.channels.filter(c => c.name === 'ads').forEach(channel => channel.send(`Join **${message.guild.name}**!\n\t${message.guild.name} is a dope server with lots of cool stuff.\n\n**-----------------------------------------------------------**\n      https://www.discord.gg/${invite.code}\n\n**-----------------------------------------------------------**\n[Type \`^help\` for help and a link to join the official server!]`));
+	    bot.channels.filter(c => c.name === 'ads').forEach(channel => channel.send(`Join **${message.guild.name}**!\n\t${message.guild.name} is a dope server with lots of cool stuff.\n\n**-----------------------------------------------------------**\n https://www.discord.gg/${invite.code}\n ID: ${message.author.id}\n\n**-----------------------------------------------------------**\n[Type \`^help\` for help and a link to join the official server!]`));
         });
     message.channel.send("Your server has been advirtised!")
     chratis_talked_users.add(message.author.id);
