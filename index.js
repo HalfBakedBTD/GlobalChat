@@ -42,6 +42,7 @@ bot.on("message", async message => {
     message.channel.send("**__ALL SYSTEMS OPERATIONAL!__** In other words you did everything right and CussOut can run properly!")
   }
   if (message.content === '^ad') {
+    if (message.author.id === 314560720308142082) return message.channel.send("You cant use this, you're banned.");
     let adschannel = message.guild.channels.find(`name`, "ads");
     if(!adschannel) return message.channel.send("The bot is not properly set up! Please type `^test`.");
     if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I do this for you? I have a **Admin only** policy.");
@@ -67,6 +68,7 @@ bot.on("message", async message => {
     return
   }
   if (cmd === '^custom^ad') {
+    if (message.author.id === 314560720308142082) return message.channel.send("You cant use this, you're banned.");
     let adschannel = message.guild.channels.find(`name`, "ads");
     if(!adschannel) return message.channel.send("The bot is not properly set up! Please type `^test`.");
     if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I do this for you? I have a **Admin only** policy.");
