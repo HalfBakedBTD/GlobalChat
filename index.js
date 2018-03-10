@@ -56,6 +56,12 @@ bot.on("message", async message => {
     message.author.send(`**AdBot:**\n\n\tRunning on: ${bot.guilds.size} servers.\n\n\tWatching: ${bot.users.size} online users.`)
     return message.channel.send("I DMed you my info!")
   }
+  if (message.content.toLowerCase().includes('@everyone')) {
+    return
+  }
+  if (message.content.toLowerCase().includes('@here')) {
+    return
+  }
   if (cmd === '^custom^ad') {
     let adschannel = message.guild.channels.find(`name`, "ads");
     if(!adschannel) return message.channel.send("The bot is not properly set up! Please type `^test`.");
@@ -65,7 +71,7 @@ bot.on("message", async message => {
       const sayMessage = args.join(" ");
     message.delete().catch(O_o=>{}); 
     message.channel.send(`Sending users message:\n\t${sayMessage}`);
-    bot.channels.filter(c => c.name === 'ads').forEach(channel => channel.send(`**[------------------ ${message.guild.name} ------------------]**\n  ${sayMessage}\n\n[------------------ ${message.guild.name} ------------------]\n*[Type \`^help\` for info and add the bot to ur server!]*`));
+    bot.channels.filter(c => c.name === 'ads').forEach(channel => channel.send(`**[------------------ ${message.guild.name} ------------------]**\n  ${sayMessage}\n\n**[------------------ ${message.guild.name} ------------------]**\n*[Type \`^help\` for info and add the bot to ur server!]*`));
     message.channel.send("Your server has been advirtised!")
     chratis_talked_users.add(message.author.id);
     setTimeout(() => {
