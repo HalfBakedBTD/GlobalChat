@@ -4,6 +4,9 @@ const bot = new Discord.Client({disableEveryone: true});
 const chratis_cooldown_time = 28;
 const chratis_talked_users = new Set();
 
+const button_cooldown_time = 10;
+const button_talked_users = new Set();
+
 bot.on("ready", async () => {
     console.log(`${bot.user.username} is online!`);
 });
@@ -70,14 +73,22 @@ bot.on("message", async message => {
     if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I test for you? I have a **Admin only** policy.");
     let adschannel = message.guild.channels.find(`name`, "ads");
     if(!adschannel) return message.channel.send("You don't have a **#ads** channel in the server! Please create one then type `^test`!");
-    let adsupchannel = message.guild.channels.find(`name`, "adbot-updates");
-    if(!adsupchannel) return message.channel.send("You don't have a **#adbot-updates** channel in the server! Please create one then type `^test`!");
+    message.channel.send("```- Checkpoint 1: Basic AdBot command channel added. Next checkpoint allows the Big Ad Button command which can be activated once every 10 minutes.```")
+    let adsbutchannel = message.guild.channels.find(`name`, "ad-button");
+    if(!adsbutchannel) return message.channel.send("You don't have a **#ad-button** channel in the server! Please create one then type `^test`!");
+    message.channel.send("```- Checkpoint 2: AdBot advertising channels added. Next checkpoint allows you to see AdBot updates!```")
+    let upchannel = message.guild.channels.find(`name`, "adbot-updates");
+    if(!upchannel) return message.channel.send("You don't have a **#adbot-updates** channel in the server! Please create one then type `^test`!");
+    message.channel.send("```- Checkpoint 3: AdBot updates channels added. Next checkpoint allows AdBot to welcome new users!```")
+    let welchannel = message.guild.channels.find(`name`, "welcome");
+    if(!welchannel) return message.channel.send("You don't have a **#welcome** channel in the server! Please create one then type `^test`!");
+    message.channel.send("```- Checkpoint 4: All channels that AdBot needs to run have been set up!```")
     message.channel.send("**__ALL SYSTEMS OPERATIONAL!__** In other words you did everything right and CussOut can run properly!")
   }
   if (message.content === '^ad') {
     if (message.author.id === '314560720308142082') return message.channel.send("You cant use this, you're banned.");
     let adschannel = message.guild.channels.find(`name`, "ads");
-    if(!adschannel) return message.channel.send("The bot is not properly set up! Please type `^test`.");
+    if(!adschannel) return message.channel.send("The bot is not properly set up for this command! Please type `^test`.");
     if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I do this for you? I have a **Admin only** policy.");
     if (chratis_talked_users.has(message.author.id)) return message.reply("You have to wait before using this command again.\n*[Only 1 server can be advertised every 28 seconds.]*");
     message.channel.createInvite()
@@ -128,6 +139,22 @@ bot.on("message", async message => {
     message.delete().catch(O_o=>{}); 
     message.channel.send(`<@${message.author.id}>, I am servers message:\n\t${sayMessage}`);
     bot.channels.filter(c => c.name === 'adbot-updates').forEach(channel => channel.send(`**[------------------ UPDATE ------------------]**\n ${sayMessage}\n\n**[------------------ UPDATE ------------------]**\n`));
+  } 
+  if (message.content === '^big-ad-button') {
+    if (message.author.id === '314560720308142082') return message.channel.send("You cant use this, you're banned.");
+    let adsbutchannel = message.guild.channels.find(`name`, "ad-button");
+    if(!adsbutchannel) return message.channel.send("The bot is not properly set up for this command! Please type `^test`.");
+    if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I do this for you? I have a **Admin only** policy.");
+    if (button_talked_users.has(message.author.id)) return message.reply("You have to wait before using this command again.\n*[Only 1 server can be advertised with the big red button every 10 minutes.]*");
+    message.channel.createInvite()
+    	.then(invite => {
+	    bot.channels.filter(c => c.name === 'ads').forEach(channel => channel.send(`:red_circle: **${message.guild.name}** PRESSED THE AD BUTTON! JOIN: **https://www.discord.gg/${invite.code}**\nID: ${message.author.id}`));
+        });
+    message.channel.send("The Bid Ad Button was pressed by <@${message.author.id}>}!")
+    button_talked_users.add(message.author.id);
+    setTimeout(() => {
+      button_talked_users.delete(message.author.id);
+    }, button_cooldown_time * 60000);
   } 
 });
 
