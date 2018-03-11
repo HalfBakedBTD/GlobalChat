@@ -63,7 +63,7 @@ bot.on("message", async message => {
   }
   if (message.content === '^help') {
     message.channel.send("DMed you! Check it out for all the info!")
-    return message.author.send("**My Commands:** *all commands start with `^` prefix.*\n\t`help` shows this message.\n\t`test` tests to see if the bot is properly set up.\n\t`info` shows bot info.\n\t`ad` bumps your channel to the top of the list.\n\t`^custom^ad` lets you advertise ANYTHING! Use: `^custom^ad <advertisement>`\n\n**IMPORTANT**: The `^ad` command can be used every 10 seconds!\n**JOIN:** [*official discord]* https://discord.gg/4T22QKn")
+    return message.author.send("**My Commands:** *all commands start with `^` prefix.*\n\t`help` shows this message.\n\t`test` tests to see if the bot is properly set up.\n\t`info` shows bot info.\n\t`ad` bumps your channel to the top of the list.\n\t`^custom^ad` lets you advertise ANYTHING! Use: `^custom^ad <advertisement>`\n\t`^big-ad-button` Can be pressed every 10 minutes. Advertises ur server so it stays on top for 10 minutes.\n\n**IMPORTANT**: The `^ad` command can be used every 10 seconds!\n**JOIN:** [*official discord]* https://discord.gg/4T22QKn")
   }
   if (message.content === '^invite') {
     message.channel.send("I DMed you a link to add me to your server!")
@@ -145,12 +145,12 @@ bot.on("message", async message => {
     let adsbutchannel = message.guild.channels.find(`name`, "ad-button");
     if(!adsbutchannel) return message.channel.send("The bot is not properly set up for this command! Please type `^test`.");
     if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I do this for you? I have a **Admin only** policy.");
-    if (button_talked_users.has(message.author.id)) return message.reply("You have to wait before using this command again.\n*[Only 1 server can be advertised with the big red button every 10 minutes.]*");
+    if (button_talked_users.has(message.author.id)) return message.reply("You have to wait before using this command again.\n*[Only 1 server can be advertised with the big ad button every 10 minutes.]*");
     message.channel.createInvite()
     	.then(invite => {
-	    bot.channels.filter(c => c.name === 'ads').forEach(channel => channel.send(`:red_circle: **${message.guild.name}** PRESSED THE AD BUTTON! JOIN: **https://www.discord.gg/${invite.code}**\nID: ${message.author.id}`));
+	    bot.channels.filter(c => c.name === 'ad-button').forEach(channel => channel.send(`:red_circle: **${message.guild.name}** PRESSED THE AD BUTTON! JOIN: **https://www.discord.gg/${invite.code}**\nID: ${message.author.id}`));
         });
-    message.channel.send("The Bid Ad Button was pressed by <@${message.author.id}>}!")
+    message.channel.send("The Bid Ad Button was pressed!")
     button_talked_users.add(message.author.id);
     setTimeout(() => {
       button_talked_users.delete(message.author.id);
