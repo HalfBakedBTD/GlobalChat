@@ -101,7 +101,7 @@ bot.on("message", async message => {
     	.then(invite => {
 	    bot.guilds.forEach(channel => {
                 message.channel.send(`**${bot.guild.name}**: https://www.discord.gg/${invite.code}`);
-	    }
+	    });
 	});
   }
 });
