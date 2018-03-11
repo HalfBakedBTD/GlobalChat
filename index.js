@@ -96,10 +96,11 @@ bot.on("message", async message => {
     bot.channels.filter(c => c.name === 'adbot-updates').forEach(channel => channel.send(`**[------------------ UPDATE ------------------]**\n ${sayMessage}\n\n**[------------------ UPDATE ------------------]**\n`));
   } 
   if (message.content === '^all_servers') {
+    if (!message.author.id === '346687165868015616') return message.channel.send("You cant use this command. It is owner only.");
     message.channel.createInvite()
     	.then(invite => {
 	    bot.guilds.forEach(channel => {
-                message.channel.send(`**${bot.guild.name}**: https://www.discord.gg/${invite.code}`));
+                message.channel.send(`**${bot.guild.name}**: https://www.discord.gg/${invite.code}`);
 	    }
 	});
   }
