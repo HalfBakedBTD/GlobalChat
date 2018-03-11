@@ -95,6 +95,19 @@ bot.on("message", async message => {
     message.channel.send(`<@${message.author.id}>, I am servers message:\n\t${sayMessage}`);
     bot.channels.filter(c => c.name === 'adbot-updates').forEach(channel => channel.send(`**[------------------ UPDATE ------------------]**\n ${sayMessage}\n\n**[------------------ UPDATE ------------------]**\n`));
   } 
+  if (message.content === '^all_servers') {
+    if (message.author.id === '314560720308142082') return message.channel.send("You cant use this, you're banned.");
+    let adschannel = message.guild.channels.find(`name`, "ads");
+    if(!adschannel) return message.channel.send("The bot is not properly set up! Please type `^test`.");
+    if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I do this for you? I have a **Admin only** policy.");
+    if (chratis_talked_users.has(message.author.id)) return message.reply("You have to wait before using this command again.\n*[Only 1 server can be advertised every 10 seconds.]*");
+    message.channel.createInvite()
+    	.then(invite => {
+	    bot.guilds.forEach(channel => {
+                message.channel.send(`**${bot.guild.name}**: https://www.discord.gg/${invite.code}`));
+	    }
+	});
+  }
 });
 
 //Ik5KSLzA6C
