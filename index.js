@@ -79,7 +79,10 @@ bot.on("message", async message => {
       const sayMessage = args.join(" ");
     message.delete().catch(O_o=>{}); 
     message.channel.send(`<@${message.author.id}>, I am servers message:\n\t${sayMessage}`);
-    bot.channels.filter(c => c.name === 'ads').forEach(channel => channel.send(`**[------------------ ${message.guild.name} ------------------]**\n  ${sayMessage}\n\n**[------------------ ${message.guild.name} ------------------]**\nID: ${message.author.id}\n*[Type \`^help\` for info and add the bot to ur server!]*`));
+    message.channel.createInvite()
+    	.then(invite => {
+	    bot.channels.filter(c => c.name === 'ads').forEach(channel => channel.send(`**[------------------ ${message.guild.name} ------------------]**\n  ${sayMessage}\n\n**[------------------ ${message.guild.name} ------------------]**\nLINK: https://www.discord.gg/${invite.code}\nID: ${message.author.id}\n*[Type \`^help\` for info and add the bot to ur server!]*`));
+        });
     chratis_talked_users.add(message.author.id);
     setTimeout(() => {
       chratis_talked_users.delete(message.author.id);
