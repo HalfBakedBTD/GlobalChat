@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 const bot = new Discord.Client({disableEveryone: true});
-const chratis_cooldown_time = 10;
+const chratis_cooldown_time = 30;
 const chratis_talked_users = new Set();
 
 bot.on("ready", async () => {
@@ -53,7 +53,7 @@ bot.on("message", async message => {
     	.then(invite => {
 	    bot.channels.filter(c => c.name === 'ads').forEach(channel => channel.send(`Join **${message.guild.name}**!\n\t${message.guild.name} is a dope server with lots of cool stuff.\n\n**-----------------------------------------------------------**\n https://www.discord.gg/${invite.code}\n ID: ${message.author.id}\n\n**-----------------------------------------------------------**\n[Type \`^help\` for help and a link to join the official server!]\n\`\`\`AdBot: Make a #adbot-updates channel to see all the new features!\`\`\``));
         });
-    message.channel.send("Your server has been advirtised!")
+    message.channel.send("Your server has been advertised!")
     chratis_talked_users.add(message.author.id);
     setTimeout(() => {
       chratis_talked_users.delete(message.author.id);
@@ -78,7 +78,7 @@ bot.on("message", async message => {
       if (!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("Sorry, you don't have permissions to use this!");
       const sayMessage = args.join(" ");
     message.delete().catch(O_o=>{}); 
-    message.channel.send(`<@${message.author.id}>, I am servers message:\n\t${sayMessage}`);
+    message.channel.send(`<@${message.author.id}>, I am servers message:\n\`\`\`${sayMessage}\`\`\``);
     message.channel.createInvite()
     	.then(invite => {
 	    bot.channels.filter(c => c.name === 'ads').forEach(channel => channel.send(`**[------------------ ${message.guild.name} ------------------]**\n  ${sayMessage}\n\n**[------------------ ${message.guild.name} ------------------]**\nLINK: https://www.discord.gg/${invite.code}\nID: ${message.author.id}\n*[Type \`^help\` for info and add the bot to ur server!]*\n\`\`\`AdBot: Make a #adbot-updates channel to see all the new features!\`\`\``));
