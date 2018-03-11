@@ -47,8 +47,6 @@ bot.on("message", async message => {
     if (message.author.id === '314560720308142082') return message.channel.send("You cant use this, you're banned.");
     let adschannel = message.guild.channels.find(`name`, "ads");
     if(!adschannel) return message.channel.send("The bot is not properly set up! Please type `^test`.");
-    let adsupchannel = message.guild.channels.find(`name`, "adbot-updates");
-    if(!adsupchannel) return message.channel.send("The bot is not properly set up! Please type `^test`.");
     if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I do this for you? I have a **Admin only** policy.");
     if (chratis_talked_users.has(message.author.id)) return message.reply("You have to wait before using this command again.\n*[Only 1 server can be advertised every 10 seconds.]*");
     message.channel.createInvite()
@@ -75,8 +73,6 @@ bot.on("message", async message => {
     if (message.author.id === '314560720308142082') return message.channel.send("You cant use this, you're banned.");
     let adschannel = message.guild.channels.find(`name`, "ads");
     if(!adschannel) return message.channel.send("The bot is not properly set up! Please type `^test`.");
-    let adsupchannel = message.guild.channels.find(`name`, "adbot-updates");
-    if(!adsupchannel) return message.channel.send("The bot is not properly set up! Please type `^test`.");
     if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I do this for you? I have a **Admin only** policy.");
     if (chratis_talked_users.has(message.author.id)) return message.reply("You have to wait before using this command again.\n*[Only 1 server can be advertised every 10 seconds.]*");
       if (!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("Sorry, you don't have permissions to use this!");
