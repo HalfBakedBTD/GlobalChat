@@ -15,7 +15,38 @@ bot.on('guildMemberAdd', member => {
   // Do nothing if the channel wasn't found on this server
   if (!channel) return;
   // Send the message, mentioning the member
-  channel.send(`:loudspeaker: **${member}** just joined the server. Have a great time here!`);
+  let random = Math.random() * 9 + 1;
+  var number = Math.round(random)
+  if (number === 1) {
+    channel.send(`:loudspeaker: **${member}** just joined the server. Have a great time here!`);
+  }
+  if (number === 2) {
+    channel.send(`:loudspeaker: Welcome **${member}**! We are glad you could make it!`)
+  }
+  if (number === 3) {
+    channel.send(`:loudspeaker: Look who fell out of the sky! Its **${member}**!`)
+  }
+  if (number === 4) {
+    channel.send(`:loudspeaker: **Someone** joined...`)
+  }
+  if (number === 5) {
+    channel.send(`:loudspeaker: **${member}**, we are glad you joined! We need your help doing something!`)
+  }
+  if (number === 6) {
+    channel.send(`:loudspeaker: A blue cat joined! We can name it **${member}**!`)
+  }
+  if (number === 7) {
+    channel.send(`:loudspeaker: RUN! **${member}** just joined to eat our guts!`)
+  }
+  if (number === 8) {
+    channel.send(`:loudspeaker: Look who the cat dragged in! Its ${member}!`)
+  }
+  if (number === 9) {
+    channel.send(`:loudspeaker: Wussup *(new member)* ${member}?`)
+  }
+  if (number === 10) {
+    channel.send(`:loudspeaker: Another Big Bang was just created! Look who evolved this time, its ${member}!`)
+  }
 });
 
 bot.on("message", async message => {
