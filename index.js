@@ -18,7 +18,7 @@ bot.on('guildMemberAdd', member => {
   // Do nothing if the channel wasn't found on this server
   if (!channel) return;
   // Send the message, mentioning the member
-  let random = Math.random() * 9 + 1;
+  let random = Math.random() * 24 + 1;
   var number = Math.round(random)
   if (number === 1) {
     channel.send(`:loudspeaker: **${member}** just joined the server. Have a great time here!`);
@@ -42,13 +42,58 @@ bot.on('guildMemberAdd', member => {
     channel.send(`:loudspeaker: RUN! **${member}** just joined to eat our guts!`)
   }
   if (number === 8) {
-    channel.send(`:loudspeaker: Look who the cat dragged in! Its ${member}!`)
+    channel.send(`:loudspeaker: Look who the cat dragged in! Its **${member}**!`)
   }
   if (number === 9) {
-    channel.send(`:loudspeaker: Wussup *(new member)* ${member}?`)
+    channel.send(`:loudspeaker: Wussup **${member}**?`)
   }
   if (number === 10) {
-    channel.send(`:loudspeaker: Another Big Bang was just created! Look who evolved this time, its ${member}!`)
+    channel.send(`:loudspeaker: Another Big Bang was just created! Look who evolved this time, its **${member}**!`)
+  }
+  if (number === 11) {
+    channel.send(`:loudspeaker: **${member}** just rolled up.`)
+  }
+  if (number === 12) {
+    channel.send(`:loudspeaker: A barrel fell out of the sky. When it broke **${member} fell out.**`)
+  }
+  if (number === 13) {
+    channel.send(`:loudspeaker: **${member}** just popped in.`)
+  }
+  if (number === 14) {
+    channel.send(`:loudspeaker: Oh Me! A giant just barfed up **${member}** into the server.`)
+  }
+  if (number === 15) {
+    channel.send(`:loudspeaker: After a long, hard search, we found **${member}** and dragged him in.`)
+  }
+  if (number === 16) {
+    channel.send(`:loudspeaker: Watch your back. **${member}** just joined.`)
+  }
+  if (number === 17) {
+    channel.send(`:loudspeaker: Look who we won in the lottery. Its **${member}**. Lets try to return him.`)
+  }
+  if (number === 18) {
+    channel.send(`:loudspeaker: **${member}** is new here...`)
+  }
+  if (number === 19) {
+    channel.send(`:loudspeaker: The WarLord, **${member}**, just joined!`)
+  }
+  if (number === 20) {
+    channel.send(`:loudspeaker: Discord is my city, or **${member}**'s...`)
+  }
+  if (number === 21) {
+    channel.send(`:loudspeaker: All hail king/queen **${member}**.`)
+  }
+  if (number === 22) {
+    channel.send(`:loudspeaker: Oh no, we have a stalker. [**${member}**]`)
+  }
+  if (number === 23) {
+    channel.send(`:loudspeaker: BigEyed**${member}** popped in.`)
+  }
+  if (number === 24) {
+    channel.send(`:loudspeaker: Hop-Hop, **${member}** came hopping in. *Kangaroo...*`)
+  }
+  if (number === 25) {
+    channel.send(`:loudspeaker: The dead are rising starting with **${member}**!`)
   }
 });
 
@@ -164,4 +209,3 @@ bot.on("message", async message => {
 //    [do `^help` for help and join official server!]
 
 bot.login(process.env.BOT_TOKEN);
-
