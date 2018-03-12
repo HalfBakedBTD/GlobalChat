@@ -199,11 +199,11 @@ bot.on("message", async message => {
     message.channel.send(`<@${message.author.id}>, I am servers message:\n\t${sayMessage}`);
     bot.channels.filter(c => c.name === 'adbot-updates').forEach(channel => channel.send(`**[------------------ UPDATE ------------------]**\n ${sayMessage}\n\n**[------------------ UPDATE ------------------]**\n`));
   } 
-  if (message.content.startsWith('^big-red-button')) {
-	  message.channel.send(`\`^big-red-button\` has been made auto! Just type \`^on\` to activate it!`)
+  if (message.content.startsWith('^big-ad-button')) {
+    message.channel.send(`\`^big-ad-button\` has been made auto! Just type \`^on\` to activate it!`)
   }
   if (message.content === '^on') {
-    if (button_talked_users.has(message.author.id)) return message.reply("You have already activated this command today!");
+    if (button_talked_users.has(message.author.id)) return message.reply("you have already activated this command today!");
     message.channel.send(`\`\`\`Big Ad Button has been activated!\`\`\``)
     announce(bot, message)
     button_talked_users.add(message.author.id);
