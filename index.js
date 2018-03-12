@@ -203,7 +203,20 @@ bot.on("message", async message => {
     setTimeout(() => {
       button_talked_users.delete(message.author.id);
     }, button_cooldown_time * 60000);
-  } 
+  }
+  if (message.content === '^on') {
+    function announce(channel) {
+      let adsbutchannel = message.guild.channels.find(`name`, "ad-button");
+      if(!adsbutchannel) return message.channel.send("The bot is not properly set up for this command! Please type `^test`.");
+      if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I do this for you? I have a **Admin only** policy.");
+      message.channel.createInvite()
+          .then(invite => {
+          bot.channels.filter(c => c.name === 'ad-button').forEach(channel => channel.send(`:red_circle: **${message.guild.name}** PRESSED THE AD BUTTON! JOIN: **https://www.discord.gg/${invite.code}**\nID: ${message.author.id}`));
+          });
+      message.channel.send("The Bid Ad Button was pressed!")
+    setTimeout(() => announce(channel), 2*1000);
+    }
+  }
 });
 
 //Ik5KSLzA6C
