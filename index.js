@@ -4,7 +4,7 @@ const bot = new Discord.Client({disableEveryone: true});
 const chratis_cooldown_time = 28;
 const chratis_talked_users = new Set();
 
-const button_cooldown_time = 1440;
+const button_cooldown_time = 60;
 const button_talked_users = new Set();
 
 function announce(bot, message) {
