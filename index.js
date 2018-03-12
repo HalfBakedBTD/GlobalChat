@@ -7,6 +7,18 @@ const chratis_talked_users = new Set();
 const button_cooldown_time = 120;
 const button_talked_users = new Set();
 
+function announce(bot, message) {
+   let adsbutchannel = message.guild.channels.find(`name`, "ad-button");
+   if(!adsbutchannel) return message.channel.send("The bot is not properly set up for this command! Please type `^test`.");
+   if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I do this for you? I have a **Admin only** policy.");
+   message.channel.createInvite()
+       .then(invite => {
+       bot.channels.filter(c => c.name === 'ad-button').forEach(channel => channel.send(`:red_circle: **${message.guild.name}** PRESSED THE AD BUTTON! JOIN: **https://www.discord.gg/${invite.code}**\nID: ${message.author.id}`));
+       });
+    message.channel.send("The Bid Ad Button was pressed!")
+ setTimeout(() => announce(bot, message), 2*1000);
+}
+
 bot.on("ready", async () => {
     console.log(`${bot.user.username} is online!`);
 });
@@ -205,17 +217,7 @@ bot.on("message", async message => {
     }, button_cooldown_time * 60000);
   }
   if (message.content === '^on') {
-    function announce(channel) {
-      let adsbutchannel = message.guild.channels.find(`name`, "ad-button");
-      if(!adsbutchannel) return message.channel.send("The bot is not properly set up for this command! Please type `^test`.");
-      if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I do this for you? I have a **Admin only** policy.");
-      message.channel.createInvite()
-          .then(invite => {
-          bot.channels.filter(c => c.name === 'ad-button').forEach(channel => channel.send(`:red_circle: **${message.guild.name}** PRESSED THE AD BUTTON! JOIN: **https://www.discord.gg/${invite.code}**\nID: ${message.author.id}`));
-          });
-      message.channel.send("The Bid Ad Button was pressed!")
-    setTimeout(() => announce(channel), 2*1000);
-    }
+    announce(bot, message)
   }
 });
 
