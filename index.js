@@ -201,9 +201,15 @@ bot.on("message", async message => {
   } 
   if (message.content.startsWith('^big-red-button')) {
 	  message.channel.send(`\`^big-red-button\` has been made auto! Just type \`^on\` to activate it!`)
+  }
   if (message.content === '^on') {
+    if (button_talked_users.has(message.author.id)) return message.reply("You have already activated this command today!");
     message.channel.send(`\`\`\`Big Ad Button has been activated!\`\`\``)
     announce(bot, message)
+    button_talked_users.add(message.author.id);
+    setTimeout(() => {
+      button_talked_users.delete(message.author.id);
+    }, button_cooldown_time * 60000);
   }
 });
 
