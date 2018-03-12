@@ -145,7 +145,7 @@ bot.on("message", async message => {
     let adsbutchannel = message.guild.channels.find(`name`, "ad-button");
     if(!adsbutchannel) return message.channel.send("The bot is not properly set up for this command! Please type `^test`.");
     if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I do this for you? I have a **Admin only** policy.");
-    if (button_talked_users.has(message.author.id)) return message.reply("You have to wait before using this command again.\n*[Only 1 server can be advertised with the big ad button every 10 minutes.]*");
+    if (button_talked_users.has(message.author.id)) return message.reply("You have to wait before using this command again.\n*[Only 1 server can be advertised with the big ad button every 2 hours.]*");
     message.channel.createInvite()
     	.then(invite => {
 	    bot.channels.filter(c => c.name === 'ad-button').forEach(channel => channel.send(`:red_circle: **${message.guild.name}** PRESSED THE AD BUTTON! JOIN: **https://www.discord.gg/${invite.code}**\nID: ${message.author.id}`));
