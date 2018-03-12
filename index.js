@@ -4,7 +4,7 @@ const bot = new Discord.Client({disableEveryone: true});
 const chratis_cooldown_time = 28;
 const chratis_talked_users = new Set();
 
-const button_cooldown_time = 120;
+const button_cooldown_time = 1440;
 const button_talked_users = new Set();
 
 function announce(bot, message) {
@@ -15,8 +15,7 @@ function announce(bot, message) {
        .then(invite => {
        bot.channels.filter(c => c.name === 'ad-button').forEach(channel => channel.send(`:red_circle: **${message.guild.name}** PRESSED THE AD BUTTON! JOIN: **https://www.discord.gg/${invite.code}**\nID: ${message.author.id}`));
        });
-    message.channel.send("The Bid Ad Button was pressed!")
- setTimeout(() => announce(bot, message), 2*1000);
+ setTimeout(() => announce(bot, message), 1*60000);
 }
 
 bot.on("ready", async () => {
@@ -123,7 +122,7 @@ bot.on("message", async message => {
   }
   if (message.content === '^help') {
     message.channel.send("DMed you! Check it out for all the info!")
-    return message.author.send("**My Commands:** *all commands start with `^` prefix.*\n\t`help` shows this message.\n\t`test` tests to see if the bot is properly set up.\n\t`info` shows bot info.\n\t`ad` bumps your channel to the top of the list.\n\t`^custom-ad` lets you advertise ANYTHING! Use: `^custom^ad <advertisement>`\n\t`^big-ad-button` Can be pressed every 10 minutes. Advertises ur server so it stays on top for 10 minutes.\n\n**IMPORTANT**: The `^ad` command can be used every 10 seconds!\n**JOIN:** [*official discord]* https://discord.gg/4T22QKn")
+    return message.author.send("**My Commands:** *all commands start with `^` prefix.*\n\t`help` shows this message.\n\t`test` tests to see if the bot is properly set up.\n\t`info` shows bot info.\n\t`ad` bumps your channel to the top of the list.\n\t`^custom-ad` lets you advertise ANYTHING! Use: `^custom^ad <advertisement>`\n\t`^on` Activates the Big Ad Button (May need shut off due to hosting. To restart type `^on` again).\n\n**IMPORTANT**: The `^ad` command can be used every 10 seconds!\n**JOIN:** [*official discord]* https://discord.gg/4T22QKn")
   }
   if (message.content === '^invite') {
     message.channel.send("I DMed you a link to add me to your server!")
@@ -200,24 +199,16 @@ bot.on("message", async message => {
     message.channel.send(`<@${message.author.id}>, I am servers message:\n\t${sayMessage}`);
     bot.channels.filter(c => c.name === 'adbot-updates').forEach(channel => channel.send(`**[------------------ UPDATE ------------------]**\n ${sayMessage}\n\n**[------------------ UPDATE ------------------]**\n`));
   } 
-  if (message.content === '^big-ad-button') {
-    if (message.author.id === '314560720308142082') return message.channel.send("You cant use this, you're banned.");
-    let adsbutchannel = message.guild.channels.find(`name`, "ad-button");
-    if(!adsbutchannel) return message.channel.send("The bot is not properly set up for this command! Please type `^test`.");
-    if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I do this for you? I have a **Admin only** policy.");
-    if (button_talked_users.has(message.author.id)) return message.reply("You have to wait before using this command again.\n*[Only 1 server can be advertised with the big ad button every 2 hours.]*");
-    message.channel.createInvite()
-    	.then(invite => {
-	    bot.channels.filter(c => c.name === 'ad-button').forEach(channel => channel.send(`:red_circle: **${message.guild.name}** PRESSED THE AD BUTTON! JOIN: **https://www.discord.gg/${invite.code}**\nID: ${message.author.id}`));
-        });
-    message.channel.send("The Bid Ad Button was pressed!")
+  if (message.content.startsWith('^big-red-button')) {
+	  message.channel.send(`\`^big-red-button\` has been made auto! Just type \`^on\` to activate it!`)
+  if (message.content === '^on') {
+    if (button_talked_users.has(message.author.id)) return message.reply("You have already avtivated the Big Ad Button once today.");
+    message.channel.send(`\`\`\`Big Ad Button has been activated!\`\`\``)
+    announce(bot, message)
     button_talked_users.add(message.author.id);
     setTimeout(() => {
       button_talked_users.delete(message.author.id);
     }, button_cooldown_time * 60000);
-  }
-  if (message.content === '^on') {
-    announce(bot, message)
   }
 });
 
