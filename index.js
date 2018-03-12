@@ -15,7 +15,7 @@ function announce(bot, message) {
        .then(invite => {
        bot.channels.filter(c => c.name === 'ad-button').forEach(channel => channel.send(`:red_circle: **${message.guild.name}** PRESSED THE AD BUTTON! JOIN: **https://www.discord.gg/${invite.code}**\nID: ${message.author.id}`));
        });
- setTimeout(() => announce(bot, message), 1*60000);
+ setTimeout(() => announce(bot, message), 30*60000);
 }
 
 bot.on("ready", async () => {
