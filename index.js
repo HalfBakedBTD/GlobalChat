@@ -106,9 +106,12 @@ bot.on("message", async message => {
   if (message.author.id === '314560720308142082') {
 	  return message.channel.send("You are banned from AdBot.")
   }
+  if (message.content.startsWith('^custom^ad')) {
+    message.channel.send(`<@${message.author.id}>, the command \`^custom^ad\` has been changed to \`^cutom-ad\`. Sorry for if this causes you any problems.`)
+  }
   if (message.content === '^help') {
     message.channel.send("DMed you! Check it out for all the info!")
-    return message.author.send("**My Commands:** *all commands start with `^` prefix.*\n\t`help` shows this message.\n\t`test` tests to see if the bot is properly set up.\n\t`info` shows bot info.\n\t`ad` bumps your channel to the top of the list.\n\t`^custom^ad` lets you advertise ANYTHING! Use: `^custom^ad <advertisement>`\n\t`^big-ad-button` Can be pressed every 10 minutes. Advertises ur server so it stays on top for 10 minutes.\n\n**IMPORTANT**: The `^ad` command can be used every 10 seconds!\n**JOIN:** [*official discord]* https://discord.gg/4T22QKn")
+    return message.author.send("**My Commands:** *all commands start with `^` prefix.*\n\t`help` shows this message.\n\t`test` tests to see if the bot is properly set up.\n\t`info` shows bot info.\n\t`ad` bumps your channel to the top of the list.\n\t`^custom-ad` lets you advertise ANYTHING! Use: `^custom^ad <advertisement>`\n\t`^big-ad-button` Can be pressed every 10 minutes. Advertises ur server so it stays on top for 10 minutes.\n\n**IMPORTANT**: The `^ad` command can be used every 10 seconds!\n**JOIN:** [*official discord]* https://discord.gg/4T22QKn")
   }
   if (message.content === '^invite') {
     message.channel.send("I DMed you a link to add me to your server!")
@@ -156,7 +159,7 @@ bot.on("message", async message => {
   if (message.content.toLowerCase().includes('@here')) {
     return
   }
-  if (cmd === '^custom^ad') {
+  if (cmd === '^custom-ad') {
     if (message.author.id === '314560720308142082') return message.channel.send("You cant use this, you're banned.");
     let adschannel = message.guild.channels.find(`name`, "ads");
     if(!adschannel) return message.channel.send("The bot is not properly set up! Please type `^test`.");
