@@ -206,8 +206,8 @@ bot.on("message", async message => {
     if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I do this for you? I have a **Admin only** policy.");
     if (chratis_talked_users.has(message.author.id)) return message.reply("You have to wait before using this command again.\n*[Only 1 thing can be advertised every 28 seconds.]*");
       if (!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("Sorry, you don't have permissions to use this!");
-    adcus(bot, message, args)
     message.channel.send(`<@${message.author.id}>, Auto Ads enabled with message:\n\`\`\`${sayMessage}\`\`\``);
+    adcus(bot, message, args)
     chratis_talked_users.add(message.author.id);
     setTimeout(() => {
       chratis_talked_users.delete(message.author.id);
