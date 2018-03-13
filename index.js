@@ -7,24 +7,13 @@ const chratis_talked_users = new Set();
 const button_cooldown_time = 60;
 const button_talked_users = new Set();
 
-function announce(bot, message) {
-   let adsbutchannel = message.guild.channels.find(`name`, "ad-button");
-   if(!adsbutchannel) return message.channel.send("The bot is not properly set up for this command! Please type `^test`.");
-   if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I do this for you? I have a **Admin only** policy.");
-   message.channel.createInvite()
-       .then(invite => {
-       bot.channels.filter(c => c.name === 'ad-button').forEach(channel => channel.send(`:red_circle: **${message.guild.name}** PRESSED THE AD BUTTON! JOIN: **https://www.discord.gg/${invite.code}**\nID: ${message.author.id}`));
-       });
- setTimeout(() => announce(bot, message), 30*60000);
-}
-
 function ad(bot, message) {
    let adschannel = message.guild.channels.find(`name`, "ads");
    message.channel.createInvite()
     	.then(invite => {
 	    bot.channels.filter(c => c.name === 'ads').forEach(channel => channel.send(`Join **${message.guild.name}**!\n\t${message.guild.name} is a server that has a lot of ${message.guild.name}ey stuff!\n\n**-----------------------------------------------------------**\n 🔗 https://www.discord.gg/${invite.code} 🔗\n ID: ${message.author.id}\n\n**-----------------------------------------------------------**\n[Type \`^help\` for help and a link to join the official server!]\n\`\`\`AdBot: Make a #adbot-updates channel to see all the new features!\nNewest Update: ^ad anables auto ads.\`\`\``));
         });
- setTimeout(() => ad(bot, message), 5*60000);
+ setTimeout(() => ad(bot, message), 15*60000);
 }
 
 function adcus(bot, message, args) {
@@ -36,7 +25,7 @@ function adcus(bot, message, args) {
     	.then(invite => {
 	    bot.channels.filter(c => c.name === 'ads').forEach(channel => channel.send(`**[------------------ ${message.guild.name} ------------------]**\n  ${sayMessage}\n\n**[------------------ ${message.guild.name} ------------------]**\nLINK: https://www.discord.gg/${invite.code}\nID: ${message.author.id}\n*[Type \`^help\` for info and add the bot to ur server!]*\n\`\`\`AdBot: Make a #adbot-updates channel to see all the new features!\`\`\``));
         });
- setTimeout(() => adcus(bot, message), 5*60000);
+ setTimeout(() => adcus(bot, message), 15*60000);
 }
     
 
@@ -154,7 +143,7 @@ bot.on("message", async message => {
   }
   if (message.content === '^help') {
     message.channel.send("DMed you! Check it out for all the info!")
-    return message.author.send("**My Commands:** *all commands start with `^` prefix.*\n\t`help` shows this message.\n\t`test` tests to see if the bot is properly set up.\n\t`info` shows bot info.\n\t`ad` bumps your channel to the top of the list.\n\t`^custom-ad` lets you advertise ANYTHING! Use: `^custom^ad <advertisement>`\n\t`^on` Activates the Big Ad Button (May need shut off due to hosting. To restart type `^on` again).\n\n**IMPORTANT**: The `^ad` command can be used every 10 seconds!\n**JOIN:** [*official discord]* https://discord.gg/4T22QKn")
+    return message.author.send("**My Commands:** *all commands start with `^` prefix.*\n\t`help` shows this message.\n\t`test` tests to see if the bot is properly set up.\n\t`info` shows bot info.\n\t`ad` bumps your channel to the top of the list.\n\t`^custom-ad` lets you advertise ANYTHING! Use: `^custom-ad <advertisement>`\n\n**JOIN:** [*official discord]* https://discord.gg/4T22QKn")
   }
   if (message.content === '^invite') {
     message.channel.send("I DMed you a link to add me to your server!")
@@ -180,9 +169,13 @@ bot.on("message", async message => {
     if (message.author.id === '314560720308142082') return message.channel.send("You cant use this, you're banned.");
     let adschannel = message.guild.channels.find(`name`, "ads");
     if(!adschannel) return message.channel.send("The bot is not properly set up for this command! Please type `^test`.");
-    if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I do this for you? I have a **Admin only** policy.");
-    if (chratis_talked_users.has(message.author.id)) return message.reply("You have to wait before using this command again.\n*[10 min cooldown]*");
-    ad(bot, message)
+		if (message.author.id !== '346687165868015616') {
+      if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I do this for you? I have a **Admin only** policy.");
+		}
+		if (message.author.id !== '346687165868015616') {
+		  if (chratis_talked_users.has(message.author.id)) return message.reply("You have to wait before using this command again.\n*[10 min cooldown]*");
+		}
+		ad(bot, message)
     message.channel.send("Ads have been enabled!")
     chratis_talked_users.add(message.author.id);
     setTimeout(() => {
@@ -203,9 +196,12 @@ bot.on("message", async message => {
     if (message.author.id === '314560720308142082') return message.channel.send("You cant use this, you're banned.");
     let adschannel = message.guild.channels.find(`name`, "ads");
     if(!adschannel) return message.channel.send("The bot is not properly set up! Please type `^test`.");
-    if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I do this for you? I have a **Admin only** policy.");
-    if (chratis_talked_users.has(message.author.id)) return message.reply("You have to wait before using this command again.\n*[Only 1 thing can be advertised every 28 seconds.]*");
-      if (!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("Sorry, you don't have permissions to use this!");
+		if (message.author.id !== '346687165868015616') {
+      if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I do this for you? I have a **Admin only** policy.");
+		}
+		if (message.author.id !== '346687165868015616') {
+			if (chratis_talked_users.has(message.author.id)) return message.reply("You have to wait before using this command again.\n*[10 minute cooldown]*");
+		}
     const sayMessage = args.join(" ");
     message.channel.send(`<@${message.author.id}>, Auto Ads enabled with message:\n\`\`\`${sayMessage}\`\`\``);
     adcus(bot, message, args)
