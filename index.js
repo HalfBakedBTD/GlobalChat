@@ -27,7 +27,7 @@ function ad(bot, message) {
  setTimeout(() => ad(bot, message), 5*60000);
 }
 
-function adcus(bot, message) {
+function adcus(bot, message, args) {
    
    const sayMessage = args.join(" ");
    let adschannel = message.guild.channels.find(`name`, "ads");
