@@ -24,7 +24,7 @@ function ad(bot, message) {
     	.then(invite => {
 	    bot.channels.filter(c => c.name === 'ads').forEach(channel => channel.send(`Join **${message.guild.name}**!\n\t${message.guild.name} has a lot of ${message.guild.name}ey stuff!\n\n**-----------------------------------------------------------**\n 🔗 https://www.discord.gg/${invite.code} 🔗\n ID: ${message.author.id}\n\n**-----------------------------------------------------------**\n[Type \`^help\` for help and a link to join the official server!]\n\`\`\`AdBot: Make a #adbot-updates channel to see all the new features!\nNewest Update: ^ad anables auto ads.\`\`\``));
         });
- setTimeout(() => announce(bot, message), 5*60000);
+ setTimeout(() => ad(bot, message), 5*60000);
 }
     
 
