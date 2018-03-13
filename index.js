@@ -22,7 +22,7 @@ function ad(bot, message) {
    let adschannel = message.guild.channels.find(`name`, "ads");
    message.channel.createInvite()
     	.then(invite => {
-	    bot.channels.filter(c => c.name === 'ads').forEach(channel => channel.send(`Join **${message.guild.name}**!\n\t${message.guild.name} has a lot of ${message.guild.name}ey stuff!\n\n**-----------------------------------------------------------**\n 🔗 https://www.discord.gg/${invite.code} 🔗\n ID: ${message.author.id}\n\n**-----------------------------------------------------------**\n[Type \`^help\` for help and a link to join the official server!]\n\`\`\`AdBot: Make a #adbot-updates channel to see all the new features!\nNewest Update: ^ad anables auto ads.\`\`\``));
+	    bot.channels.filter(c => c.name === 'ads').forEach(channel => channel.send(`Join **${message.guild.name}**!\n\t${message.guild.name} is a server that has a lot of ${message.guild.name}ey stuff!\n\n**-----------------------------------------------------------**\n 🔗 https://www.discord.gg/${invite.code} 🔗\n ID: ${message.author.id}\n\n**-----------------------------------------------------------**\n[Type \`^help\` for help and a link to join the official server!]\n\`\`\`AdBot: Make a #adbot-updates channel to see all the new features!\nNewest Update: ^ad anables auto ads.\`\`\``));
         });
  setTimeout(() => ad(bot, message), 5*60000);
 }
@@ -127,6 +127,16 @@ bot.on("message", async message => {
   if (message.author.id === '314560720308142082') {
 	  return message.channel.send("You are banned from AdBot.")
   }
+  if (cmd === '^update') {
+    if (!message.author.id === '346687165868015616') return message.channel.send("You cant use this command. It is owner only.");
+    let adsupchannel = message.guild.channels.find(`name`, "adbot-updates");
+    if(!adsupchannel) return message.channel.send("The bot is not properly set up! Please type `^test`.");
+      if (!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("Sorry, you don't have permissions to use this!");
+      const sayMessage = args.join(" ");
+    message.delete().catch(O_o=>{}); 
+    message.channel.send(`<@${message.author.id}>, I am servers message:\n\t${sayMessage}`);
+    bot.channels.filter(c => c.name === 'adbot-updates').forEach(channel => channel.send(`**[------------------ UPDATE ------------------]**\n ${sayMessage}\n\n**[------------------ UPDATE ------------------]**\n`));
+  } 
   if (message.content.startsWith('^custom^ad')) {
     message.channel.send(`<@${message.author.id}>, the command \`^custom^ad\` has been changed to \`^cutom-ad\`. Sorry for if this causes you any problems.`)
   }
@@ -195,16 +205,6 @@ bot.on("message", async message => {
     setTimeout(() => {
       chratis_talked_users.delete(message.author.id);
     }, chratis_cooldown_time * 1000);
-  } 
-  if (cmd === '^update') {
-    if (!message.author.id === '346687165868015616') return message.channel.send("You cant use this command. It is owner only.");
-    let adsupchannel = message.guild.channels.find(`name`, "adbot-updates");
-    if(!adsupchannel) return message.channel.send("The bot is not properly set up! Please type `^test`.");
-      if (!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("Sorry, you don't have permissions to use this!");
-      const sayMessage = args.join(" ");
-    message.delete().catch(O_o=>{}); 
-    message.channel.send(`<@${message.author.id}>, I am servers message:\n\t${sayMessage}`);
-    bot.channels.filter(c => c.name === 'adbot-updates').forEach(channel => channel.send(`**[------------------ UPDATE ------------------]**\n ${sayMessage}\n\n**[------------------ UPDATE ------------------]**\n`));
   } 
   if (message.content.startsWith('^big-ad-button')) {
     message.channel.send(`\`^big-ad-button\` has been made auto! Just type \`^on\` to activate it!`)
