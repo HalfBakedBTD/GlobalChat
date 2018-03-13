@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const fs = require("fs");
 const bot = new Discord.Client({disableEveryone: true});
-const chratis_cooldown_time = 28;
+const chratis_cooldown_time = 10;
 const chratis_talked_users = new Set();
 
 const button_cooldown_time = 60;
@@ -17,6 +17,16 @@ function announce(bot, message) {
        });
  setTimeout(() => announce(bot, message), 30*60000);
 }
+
+function ad(bot, message) {
+   let adschannel = message.guild.channels.find(`name`, "ads");
+   message.channel.createInvite()
+    	.then(invite => {
+	    bot.channels.filter(c => c.name === 'ads').forEach(channel => channel.send(`Join **${message.guild.name}**!\n\t${message.guild.name} has a lot of ${message.guild.name}ey stuff!\n\n**-----------------------------------------------------------**\n 🔗 https://www.discord.gg/${invite.code} 🔗\n ID: ${message.author.id}\n\n**-----------------------------------------------------------**\n[Type \`^help\` for help and a link to join the official server!]\n\`\`\`AdBot: Make a #adbot-updates channel to see all the new features!\nNewest Update: ^ad anables auto ads.\`\`\``));
+        });
+ setTimeout(() => announce(bot, message), 5*60000);
+}
+    
 
 bot.on("ready", async () => {
     console.log(`${bot.user.username} is online!`);
@@ -149,16 +159,13 @@ bot.on("message", async message => {
     let adschannel = message.guild.channels.find(`name`, "ads");
     if(!adschannel) return message.channel.send("The bot is not properly set up for this command! Please type `^test`.");
     if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I do this for you? I have a **Admin only** policy.");
-    if (chratis_talked_users.has(message.author.id)) return message.reply("You have to wait before using this command again.\n*[Only 1 server can be advertised every 28 seconds.]*");
-    message.channel.createInvite()
-    	.then(invite => {
-	    bot.channels.filter(c => c.name === 'ads').forEach(channel => channel.send(`Join **${message.guild.name}**!\n\t${message.guild.name} is a dope server with lots of cool stuff.\n\n**-----------------------------------------------------------**\n https://www.discord.gg/${invite.code}\n ID: ${message.author.id}\n\n**-----------------------------------------------------------**\n[Type \`^help\` for help and a link to join the official server!]\n\`\`\`AdBot: Make a #adbot-updates channel to see all the new features!\`\`\``));
-        });
-    message.channel.send("Your server has been advertised!")
+    if (chratis_talked_users.has(message.author.id)) return message.reply("You have to wait before using this command again.\n*[10 min cooldown]*");
+    ad(bot, message)
+    message.channel.send("Ads have been enabled!")
     chratis_talked_users.add(message.author.id);
     setTimeout(() => {
       chratis_talked_users.delete(message.author.id);
-    }, chratis_cooldown_time * 1000);
+    }, chratis_cooldown_time * 60000);
   } 
   if (message.content === '^info') {
     message.author.send(`**AdBot:**\n\n\tRunning on: ${bot.guilds.size} servers.\n\n\tWatching: ${bot.users.size} online users.`)
