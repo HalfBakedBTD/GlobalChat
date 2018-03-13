@@ -26,6 +26,18 @@ function ad(bot, message) {
         });
  setTimeout(() => ad(bot, message), 5*60000);
 }
+
+function adcus(bot, message) {
+   
+   const sayMessage = args.join(" ");
+   let adschannel = message.guild.channels.find(`name`, "ads");
+    message.delete().catch(O_o=>{}); 
+    message.channel.createInvite()
+    	.then(invite => {
+	    bot.channels.filter(c => c.name === 'ads').forEach(channel => channel.send(`**[------------------ ${message.guild.name} ------------------]**\n  ${sayMessage}\n\n**[------------------ ${message.guild.name} ------------------]**\nLINK: https://www.discord.gg/${invite.code}\nID: ${message.author.id}\n*[Type \`^help\` for info and add the bot to ur server!]*\n\`\`\`AdBot: Make a #adbot-updates channel to see all the new features!\`\`\``));
+        });
+ setTimeout(() => adcus(bot, message), 5*60000);
+}
     
 
 bot.on("ready", async () => {
@@ -194,17 +206,12 @@ bot.on("message", async message => {
     if(!message.member.hasPermission("ADMINISTRATOR")) return message.reply("No. Why would I do this for you? I have a **Admin only** policy.");
     if (chratis_talked_users.has(message.author.id)) return message.reply("You have to wait before using this command again.\n*[Only 1 thing can be advertised every 28 seconds.]*");
       if (!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("Sorry, you don't have permissions to use this!");
-      const sayMessage = args.join(" ");
-    message.delete().catch(O_o=>{}); 
-    message.channel.send(`<@${message.author.id}>, I am servers message:\n\`\`\`${sayMessage}\`\`\``);
-    message.channel.createInvite()
-    	.then(invite => {
-	    bot.channels.filter(c => c.name === 'ads').forEach(channel => channel.send(`**[------------------ ${message.guild.name} ------------------]**\n  ${sayMessage}\n\n**[------------------ ${message.guild.name} ------------------]**\nLINK: https://www.discord.gg/${invite.code}\nID: ${message.author.id}\n*[Type \`^help\` for info and add the bot to ur server!]*\n\`\`\`AdBot: Make a #adbot-updates channel to see all the new features!\`\`\``));
-        });
+    adcus(bot, message)
+    message.channel.send(`<@${message.author.id}>, Auto Ads enabled with message:\n\`\`\`${sayMessage}\`\`\``);
     chratis_talked_users.add(message.author.id);
     setTimeout(() => {
       chratis_talked_users.delete(message.author.id);
-    }, chratis_cooldown_time * 1000);
+    }, chratis_cooldown_time * 60000);
   } 
   if (message.content.startsWith('^big-ad-button')) {
     message.channel.send(`\`^big-ad-button\` has been made auto! Just type \`^on\` to activate it!`)
